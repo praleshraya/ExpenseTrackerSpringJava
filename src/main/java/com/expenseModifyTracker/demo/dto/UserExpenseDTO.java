@@ -3,14 +3,15 @@ package com.expenseModifyTracker.demo.dto;
 import com.expenseModifyTracker.demo.Model.User;
 
 
-import java.util.Date;
+import java.time.LocalDate;
+
 
 public class UserExpenseDTO {
 
     private Long expenseID;
     private String title;
     private double amount;
-    private Date date;
+    private LocalDate date;
     private Long userID;
     private Long categoryID;
     private String categoryName;
@@ -18,7 +19,7 @@ public class UserExpenseDTO {
     public UserExpenseDTO() {
     }
 
-    public UserExpenseDTO(Long expenseID, String title, double amount, Date date, Long userID, Long categoryID, String categoryName) {
+    public UserExpenseDTO(Long expenseID, String title, double amount, LocalDate date, Long userID, Long categoryID, String categoryName) {
         this.expenseID = expenseID;
         this.title = title;
         this.amount = amount;
@@ -52,11 +53,11 @@ public class UserExpenseDTO {
         this.amount = amount;
     }
 
-    public Date getDate() {
+    public LocalDate getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(LocalDate date) {
         this.date = date;
     }
 
@@ -80,7 +81,23 @@ public class UserExpenseDTO {
         return categoryName;
     }
 
+
     public void setCategoryName(String categoryName) {
         this.categoryName = categoryName;
     }
+
+    @Override
+    public String toString() {
+        return "UserExpenseDTO{" +
+                "expenseID=" + expenseID +
+                ", title='" + title + '\'' +
+                ", amount=" + amount +
+                ", date=" + date +
+                ", userID=" + userID +
+                ", categoryID=" + categoryID +
+                ", categoryName='" + categoryName + '\'' +
+                '}';
+    }
+
+
 }

@@ -37,4 +37,38 @@ public class UserService {
         }
         return user;
     }
+
+    //update profile
+    public UserDTO updateUserProfile(Long userId, UserDTO updatedUser) {
+        Optional<User> optionalUser = userRepository.findById(userId);
+
+        if (optionalUser.isEmpty()) {
+            throw new RuntimeException("User not found");
+        }
+
+        User user = optionalUser.get();
+        user.setUserName(updatedUser.getUserName());
+        user.setUserEmail(updatedUser.getUserEmail());
+
+        User saved = userRepository.save(user);
+        return UserMapper.mapUserToUserDTO(saved);
+    }
+
+   //change password
+    public String changePassword(Long userId, String oldPassword, String newPassword) {
+        Optional<User> optionalUser = userRepository.findById(userId);
+
+        if (optionalUser.isEmpty()) {
+            throw new RuntimeException("User not found");
+        }
+
+        User user = optionalUser.get();
+        if (!user.getUserPassword().equals(oldPassword)) {
+            throw new RuntimeException("Old password does not match");
+        }
+
+        user.setUserPassword(newPassword);
+        userRepository.save(user);
+        return "Password changed successfully";
+    }
 }

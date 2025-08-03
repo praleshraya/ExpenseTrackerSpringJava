@@ -13,11 +13,12 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @RestController
 @RequestMapping("/users")
-@CrossOrigin("http://localhost:4200/")
+@CrossOrigin( origins = "http://localhost:4200/")
 public class UserController {
     private final UserService userService;
 
@@ -95,4 +96,25 @@ public ResponseEntity<UserLoginResponseDTO> loginUser(@RequestBody @Valid UserLo
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(responseDTO);
     }
 }
+    @PutMapping("/{userId}")
+    public ResponseEntity<UserDTO> updateUserProfile(
+            @PathVariable Long userId,
+            @RequestBody UserDTO userDTO
+    ) {
+        UserDTO updated = userService.updateUserProfile(userId, userDTO);
+        return ResponseEntity.ok(updated);
+    }
+
+    @PutMapping("/{userId}/password")
+    public ResponseEntity<String> changePassword(
+            @PathVariable Long userId,
+            @RequestBody Map<String, String> passwordData
+    ) {
+        String oldPassword = passwordData.get("oldPassword");
+        String newPassword = passwordData.get("newPassword");
+        String result = userService.changePassword(userId, oldPassword, newPassword);
+        return ResponseEntity.ok(result);
+    }
+
+
 }

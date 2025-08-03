@@ -5,9 +5,12 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
+import lombok.Data;
+
+import java.time.LocalDate;
 import java.util.Date;
 
-
+@Data
 @Entity
 public class UserExpense {
     @Id
@@ -18,7 +21,7 @@ public class UserExpense {
     private String title;
 
     @NotNull(message = "Date is required")
-    private Date date;
+    private LocalDate date;
 
     @Positive(message = "Amount must be positive")
     private double amount;
@@ -34,7 +37,7 @@ public class UserExpense {
     public UserExpense() {
     }
 
-    public UserExpense(Long expenseID, String title, Date date, double amount, User user, Category category) {
+    public UserExpense(Long expenseID, String title, LocalDate date, double amount, User user, Category category) {
         this.expenseID = expenseID;
         this.title = title;
         this.date = date;
@@ -59,11 +62,11 @@ public class UserExpense {
         this.title = title;
     }
 
-    public Date getDate() {
+    public LocalDate getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(LocalDate date) {
         this.date = date;
     }
 

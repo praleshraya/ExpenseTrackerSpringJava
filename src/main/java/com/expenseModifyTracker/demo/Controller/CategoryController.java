@@ -8,7 +8,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @RestController
@@ -38,12 +40,23 @@ public class CategoryController {
         }
         return ResponseEntity.ok(category);
     }
+        //url: localhost:8080/categories
 
-    @PostMapping
-    public ResponseEntity<String> createCategory(@RequestBody @Valid Category categoryRequest){
+        @PostMapping
+        public ResponseEntity<String> createCategory(@RequestBody @Valid Category categoryRequest){
+        System.err.println("inside create category function - Spring Boot Backend.");
         Category category = this.categoryService.createCategory(categoryRequest);
         return ResponseEntity.ok("Category created successfully.");
     }
+
+//        @PostMapping("/categories")
+//        public ResponseEntity<Map<String, String>> createCategory(@RequestBody Category category) {
+//            categoryService.createCategory(category);
+//            Map<String, String> response = new HashMap<>();
+//            response.put("message", "Category created successfully.");
+//            return ResponseEntity.ok(response);
+//        }
+
 
     @PutMapping("/{CategoryID}")
     public ResponseEntity<String> updateCategory(@PathVariable Long id,@RequestBody @Valid Category categoryUpdateRequest){
